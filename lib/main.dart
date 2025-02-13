@@ -1,54 +1,56 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manager/scr/setting.dart';
-import 'package:money_manager/scr/year.dart';
+import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  await Supabase.initialize(
+    url: 'https://oldhwuqmpnklmgujpfuc.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZGh3dXFtcG5rbG1ndWpwZnVjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk0NDE1MDQsImV4cCI6MjA1NTAxNzUwNH0.5xhmfrOhmWcJYRQSi5ld8mVKCjRp5bDJlTKJb5MGxl8',
+  );
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  _MyAppState createState() => _MyAppState();
+  runApp(const MyApp());
 }
 
-class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 0;
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  List<Widget> tabItems = [yearManage(), setting()];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: tabItems[_selectedIndex],
-        ),
-        bottomNavigationBar: FlashyTabBar(
-          selectedIndex: _selectedIndex,
-          showElevation: true,
-          onItemSelected: (index) => setState(() {
-            _selectedIndex = index;
-          }),
-          items: [
-            FlashyTabBarItem(
-              icon: const Icon(Icons.event),
-              title: const Text('Manage'),
-            ),
-            FlashyTabBarItem(
-              icon: const Icon(Icons.settings),
-              title: const Text('Setting'),
-            ),
-          ],
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(),
         ),
       ),
+      initialRoute: '/',
+      routes: {
+        // '/': (context) => const SignUp(),
+        // '/magic_link': (context) => const MagicLink(),
+        // '/update_password': (context) => const UpdatePassword(),
+        // '/phone_sign_in': (context) => const PhoneSignIn(),
+        // '/phone_sign_up': (context) => const PhoneSignUp(),
+        // '/verify_phone': (context) => const VerifyPhone(),
+        // '/home': (context) => const Home(),
+      },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (BuildContext context) => const Scaffold(
+            body: Center(
+              child: Text(
+                'Not Found',
+                style: TextStyle(
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
