@@ -1,55 +1,34 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
-import 'package:money_manager/scr/setting.dart';
+import 'package:money_manager/pages/profile_page.dart';
 import 'package:money_manager/scr/year.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-void main() => runApp(const MyApp());
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 0;
-
-  List<Widget> tabItems = [
-    yearManage(),
-    setting(),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class ControlTab extends StatelessWidget {
+  const ControlTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: tabItems[_selectedIndex],
-        ),
-        bottomNavigationBar: FlashyTabBar(
-          selectedIndex: _selectedIndex,
-          showElevation: true,
-          onItemSelected: (index) => setState(() {
-            _selectedIndex = index;
-          }),
-          items: [
-            FlashyTabBarItem(
-              icon: const Icon(Icons.event),
-              title: const Text('Manage'),
+      title: 'Persistent Bottom Navigation Bar Demo',
+      home: PersistentTabView(
+        tabs: [
+          PersistentTabConfig(
+            screen: const YearScreen(),
+            item: ItemConfig(
+              icon: const Icon(Icons.calendar_today),
+              title: "Home",
             ),
-            FlashyTabBarItem(
-              icon: const Icon(Icons.settings),
-              title: const Text('Setting'),
+          ),
+          PersistentTabConfig(
+            screen: const ProfilePage(),
+            item: ItemConfig(
+              icon: const Icon(Icons.settings_applications_sharp),
+              title: "Setting",
             ),
-          ],
+          ),
+        ],
+        navBarBuilder: (navBarConfig) => Style1BottomNavBar(
+          navBarConfig: navBarConfig,
         ),
       ),
     );

@@ -38,6 +38,7 @@ dependencies:
   flashy_tab_bar2: ^0.0.10
   settings_ui: ^2.0.2
   supabase_auth_ui: ^0.5.4
+  persistent_bottom_nav_bar_v2: ^5.3.1
 
 dev_dependencies:
   flutter_test:
